@@ -4,4 +4,4 @@ Dieses Grundgerüst wird in Jülich in Zukunft dafür benutzt den Studis für ih
 * UTF8
 * pom-config für `mvn exec:java`
 
-In den gleichen Namespace forken funktioniert nicht, deshalb muss dafür eine andere Lösung gefunden werden
+Dieses Repo dient dem Import bei Neuerstellung eines Git-Projekts der FH Aachen
