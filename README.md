@@ -1,7 +1,15 @@
-Dieses Grundgerüst wird in Jülich in Zukunft dafür benutzt den Studis für ihren Mazenetclient ein paar Dinge vorzugeben:
-* Maven
-* Java 8
-* UTF8
-* pom-config für `mvn exec:java`
+# TODO
 
-Dieses Repo dient dem Import bei Neuerstellung eines Git-Projekts der FH Aachen
+* `Client.java`
+  * Klassennamen in Teamnamen refactoren
+  * Teammitglieder in Javadoc dieser Klasse eintragen
+  * Teamnamen in der Klassenvariablen setzen
+* `pom.xml`
+  * Die Mainklasse ebenfalls in pom.xml umbenennen
+  * ArtifactId in pom.xml anpassen
+
+# Run
+
+* IDE
+* `mvn exec:java`
+* `mvn clean compile assembly:single` -> `java -jar target/Client-0.0.1-SNAPSHOT.jar`

@@ -20,12 +20,9 @@ public class Client {
     private static String TRUSTSTORE_PATH = "";
     private static String hostnameOptionShortName = "h";
     private static String portOptionsShortName = "p";
-    private static String truststorePathShortOptionName = "tp";
+    private static String truststorePathShortOptionName = "t";
 
     public static void main(String[] args) throws ParseException {
-        System.out.println("----------");
-        System.out.println("clientstub");
-        System.out.println("----------");
         Options options = new Options();
         options.addOption(hostnameOptionShortName, true, "Host");
         options.addOption(portOptionsShortName, true, "Port");
@@ -38,6 +35,9 @@ public class Client {
             PORT = Integer.parseInt(commandLine.getOptionValue(portOptionsShortName));
         if (commandLine.hasOption(truststorePathShortOptionName))
             TRUSTSTORE_PATH = commandLine.getOptionValue(truststorePathShortOptionName);
+        System.out.println("Team: " + TEAMNAME);
+        System.out.println("Host: " + HOSTNAME);
+        System.out.println("Port: " + PORT);
     }
 
 }
