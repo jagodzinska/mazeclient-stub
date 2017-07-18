@@ -1,7 +1,6 @@
 package de.fhac.rn.mazenet.client;
 
 import org.apache.commons.cli.CommandLine;
-import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Option;
@@ -26,14 +25,13 @@ public class Client {
     private static int port = 5123;
     private static String truststorePath = "";
     private static Options options = new Options();
-    private static HelpFormatter formatter = new HelpFormatter();
 
     static {
         String descriptionHost = "Festlegen zu welchem Host verbunden werden soll";
         String descriptionPort = "Festlegen auf welchen Port auf dem Zielsystem verbunden werden soll";
         String descriptionTruststore = "Bei Verwendung von SSL/TLS wird hier der Pfad zum Truststore angegeben";
         String descriptionHelp = "Anzeigen dieser Hilfe";
-        
+
         options.addOption(
                 Option.builder().longOpt(OPTION_HOSTNAME).desc(descriptionHost).hasArg().argName("hostname").build());
         options.addOption(Option.builder().longOpt(OPTION_PORT).desc(descriptionPort).hasArg().argName("port").build());
@@ -43,28 +41,29 @@ public class Client {
     }
 
     private static void parseArgs(String[] args) {
-        CommandLineParser commandLineParser = new DefaultParser();
-        CommandLine commandLine = null;
+        HelpFormatter formatter = new HelpFormatter();
         try {
-            commandLine = commandLineParser.parse(options, args);
+            CommandLine commandLine = new DefaultParser().parse(options, args);
+            // wenn Hilfe angezeigt wird, wird der Rest ignoriert
+            if (commandLine.hasOption(OPTION_HELP)) {
+                formatter.printHelp(TEAMNAME, options);
+                System.exit(0);
+            }
+            if (commandLine.hasOption(OPTION_HOSTNAME))
+                hostname = commandLine.getOptionValue(OPTION_HOSTNAME);
+            if (commandLine.hasOption(OPTION_PORT))
+                port = Integer.parseInt(commandLine.getOptionValue(OPTION_PORT));
+            if (commandLine.hasOption(OPTION_TRUSTSTORE_PATH))
+                truststorePath = commandLine.getOptionValue(OPTION_TRUSTSTORE_PATH);
         } catch (ParseException e) {
+            // sobald ein ungueltiger Parameter vorhanden ist
             System.err.println("Ungültige Parameter vorhanden -> Anzeigen der Hilfe");
             formatter.printHelp(TEAMNAME, options);
             System.exit(1);
         }
-        if (commandLine.hasOption(OPTION_HELP)) {
-            formatter.printHelp(TEAMNAME, options);
-            System.exit(0);
-        }
-        if (commandLine.hasOption(OPTION_HOSTNAME))
-            hostname = commandLine.getOptionValue(OPTION_HOSTNAME);
-        if (commandLine.hasOption(OPTION_PORT))
-            port = Integer.parseInt(commandLine.getOptionValue(OPTION_PORT));
-        if (commandLine.hasOption(OPTION_TRUSTSTORE_PATH))
-            truststorePath = commandLine.getOptionValue(OPTION_TRUSTSTORE_PATH);
     }
 
-    public static void main(String[] args) throws ParseException {
+    public static void main(String[] args) {
         parseArgs(args);
         System.out.println("Team: " + TEAMNAME);
         System.out.println("Host: " + hostname);
