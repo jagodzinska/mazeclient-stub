@@ -13,14 +13,14 @@ import org.apache.commons.cli.ParseException;
  */
 public class Client {
 
-    // TODO
-    private static final String TEAMNAME = "hier Teamnamen eintragen";
-    private static String HOSTNAME = "localhost";
-    private static int PORT = 5123;
-    private static String TRUSTSTORE_PATH = "";
-    private static String hostnameOptionShortName = "h";
-    private static String portOptionsShortName = "p";
-    private static String truststorePathShortOptionName = "t";
+    private static final String TEAMNAME = Client.class.getSimpleName();
+    private static final String hostnameOptionShortName = "h";
+    private static final String portOptionsShortName = "p";
+    private static final String truststorePathShortOptionName = "t";
+
+    private static String hostname = "localhost";
+    private static int port = 5123;
+    private static String truststorePath = "";
 
     public static void main(String[] args) throws ParseException {
         Options options = new Options();
@@ -30,14 +30,14 @@ public class Client {
         CommandLineParser commandLineParser = new DefaultParser();
         CommandLine commandLine = commandLineParser.parse(options, args);
         if (commandLine.hasOption(hostnameOptionShortName))
-            HOSTNAME = commandLine.getOptionValue(hostnameOptionShortName);
+            hostname = commandLine.getOptionValue(hostnameOptionShortName);
         if (commandLine.hasOption(portOptionsShortName))
-            PORT = Integer.parseInt(commandLine.getOptionValue(portOptionsShortName));
+            port = Integer.parseInt(commandLine.getOptionValue(portOptionsShortName));
         if (commandLine.hasOption(truststorePathShortOptionName))
-            TRUSTSTORE_PATH = commandLine.getOptionValue(truststorePathShortOptionName);
+            truststorePath = commandLine.getOptionValue(truststorePathShortOptionName);
         System.out.println("Team: " + TEAMNAME);
-        System.out.println("Host: " + HOSTNAME);
-        System.out.println("Port: " + PORT);
+        System.out.println("Host: " + hostname);
+        System.out.println("Port: " + port);
     }
 
 }
