@@ -1,4 +1,4 @@
-package de.fhac.mazenet;
+package de.fhac.mazenet.client;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.DefaultParser;
